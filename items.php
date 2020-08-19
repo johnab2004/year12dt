@@ -17,11 +17,11 @@ if (isset($_GET['item'])) {
     $id = 1;
 }
 
-$this_item_query = "SELECT ItemID, PName, Cost, Calories, Stock, Description FROM item WHERE ItemID = '" . $id . "'";
+$this_item_query = "SELECT ItemID, IName, Cost, Calories, Stock, Description FROM item WHERE ItemID = '" . $id . "'";
 $this_item_result = mysqli_query($con, $this_item_query);
 $this_item_record = mysqli_fetch_assoc($this_item_result);
 
-$all_items_query = "SELECT ItemID, PName, Cost, Calories, Stock, Description FROM item";
+$all_items_query = "SELECT ItemID, IName, Cost, Calories, Stock, Description FROM item";
 $all_items_result = mysqli_query($con, $all_items_query);
 
 ?>
@@ -46,7 +46,6 @@ $all_items_result = mysqli_query($con, $all_items_query);
 <p class="hug">Everyone welcome :)</p>
 
 <nav class="clearfix">
-    <a href="contactus.php">Contact us </a>
     <a href="specials.php">Specials </a>
     <a href="drinks2.php">Drinks </a>
     <a href="items.php">Food </a>
@@ -59,13 +58,15 @@ $all_items_result = mysqli_query($con, $all_items_query);
 
     <?php
 
-    echo "<p> Item Name: " . $this_item_record['PName'] . "<br>";
+    echo "<p> Item Name: " . $this_item_record['IName'] . "<br>";
     echo "<p> Cost: $" . $this_item_record ['Cost'] . "<br>";
     echo "<p> Calories: " . $this_item_record ['Calories'] . "<br>";
     echo "<p> Stock: " . $this_item_record ['Stock'] . "<br>";
     echo "<p> Description: " . $this_item_record ['Description'] . "<br>";
     ?>
 </main>
+
+<hr>
 
 <div class="coltxt">
     <h2>Select Another Item</h2>
@@ -76,7 +77,7 @@ $all_items_result = mysqli_query($con, $all_items_query);
                 <?php
                 while ($all_items_record = mysqli_fetch_assoc($all_items_result)) {
                     echo "<option value = '" . $all_items_record['ItemID'] . "'>";
-                    echo $all_items_record ['PName'];
+                    echo $all_items_record ['IName'];
                     echo "</option>";
                 }
                 ?>
@@ -86,6 +87,8 @@ $all_items_result = mysqli_query($con, $all_items_query);
         </form>
     </main>
 </div>
+
+<hr>
 
 <div class="coltxt">
     <h2> Search a Item</h2>
@@ -98,16 +101,21 @@ $all_items_result = mysqli_query($con, $all_items_query);
     if (isset($_POST['search'])) {
         $search = $_POST['search'];
 
-        $query1 = "SELECT * FROM item WHERE PName LIKE '%$search%'";
+        $query1 = "SELECT * FROM item WHERE IName LIKE '%$search%'";
         $query = mysqli_query($con, $query1);
         $count = mysqli_num_rows($query);
 
         if ($count == 0) {
             echo "There was no search results!";
-        } else {
+        }
+        elseif ($search == ""){
+            echo "There was no search results!";
+        }
+        else{
+
 
             while ($row = mysqli_fetch_array($query)) {
-                echo $row ['PName'];
+                echo $row ['IName'];
                 echo "<br>";
             }
 
@@ -115,6 +123,8 @@ $all_items_result = mysqli_query($con, $all_items_query);
     }
     ?>
 </div>
+
+<hr>
 
 <h2>Food Menu</h2>
 
@@ -147,11 +157,12 @@ $all_items_result = mysqli_query($con, $all_items_query);
 
     <?php
     if (isset($_POST['A-Z'])) {
-        $result = mysqli_query($con, "SELECT * FROM item ORDER BY PName ASC");
+        $result = mysqli_query($con, "SELECT * FROM item ORDER BY IName ASC");
+        if (mysqli_num_rows($result) != 0) {
             while ($test = mysqli_fetch_array($result)) {
                 $id = $test['ItemID'];
                 echo "<tr>";
-                echo "<td>" . $test['PName'] . "</td>";
+                echo "<td>" . $test['IName'] . "</td>";
                 echo "<td>" . $test['Cost'] . "</td>";
                 echo "<td>" . $test['Calories'] . "</td>";
                 echo "<td>" . $test['Stock'] . "</td>";
@@ -159,107 +170,122 @@ $all_items_result = mysqli_query($con, $all_items_query);
 
                 echo "</tr>";
             }
+        }
     }
 
 
     if (isset($_POST['Z-A'])) {
-        $result = mysqli_query($con, "SELECT * FROM item ORDER BY PName DESC");
+        $result = mysqli_query($con, "SELECT * FROM item ORDER BY IName DESC");
+        if (mysqli_num_rows($result) != 0) {
             while ($test = mysqli_fetch_array($result)) {
                 $id = $test['ItemID'];
                 echo "<tr>";
-                echo "<td>" . $test['PName'] . "</td>";
+                echo "<td>" . $test['IName'] . "</td>";
                 echo "<td>" . $test['Cost'] . "</td>";
                 echo "<td>" . $test['Calories'] . "</td>";
                 echo "<td>" . $test['Stock'] . "</td>";
 
                 echo "</tr>";
             }
+        }
     }
 
 
     if (isset($_POST['low_to_high'])) {
         $result = mysqli_query($con, "SELECT * FROM item ORDER BY Cost ASC");
+        if (mysqli_num_rows($result) != 0) {
             while ($test = mysqli_fetch_array($result)) {
                 $id = $test['ItemID'];
                 echo "<tr>";
-                echo "<td>" . $test['PName'] . "</td>";
+                echo "<td>" . $test['IName'] . "</td>";
                 echo "<td>" . $test['Cost'] . "</td>";
                 echo "<td>" . $test['Calories'] . "</td>";
                 echo "<td>" . $test['Stock'] . "</td>";
 
                 echo "</tr>";
             }
+        }
     }
 
 
     if (isset($_POST['high_to_low'])) {
         $result = mysqli_query($con, "SELECT * FROM item ORDER BY Cost DESC");
+        if (mysqli_num_rows($result) != 0) {
             while ($test = mysqli_fetch_array($result)) {
                 $id = $test['ItemID'];
                 echo "<tr>";
-                echo "<td>" . $test['PName'] . "</td>";
+                echo "<td>" . $test['IName'] . "</td>";
                 echo "<td>" . $test['Cost'] . "</td>";
                 echo "<td>" . $test['Calories'] . "</td>";
                 echo "<td>" . $test['Stock'] . "</td>";
 
                 echo "</tr>";
             }
+        }
     }
 
     if (isset($_POST['cal_low_to_high'])) {
         $result = mysqli_query($con, "SELECT * FROM item ORDER BY Calories ASC");
+        if (mysqli_num_rows($result) != 0) {
             while ($test = mysqli_fetch_array($result)) {
                 $id = $test['ItemID'];
                 echo "<tr>";
-                echo "<td>" . $test['PName'] . "</td>";
+                echo "<td>" . $test['IName'] . "</td>";
                 echo "<td>" . $test['Cost'] . "</td>";
                 echo "<td>" . $test['Calories'] . "</td>";
                 echo "<td>" . $test['Stock'] . "</td>";
 
                 echo "</tr>";
             }
+        }
     }
 
     if (isset($_POST['cal_high_to_low'])) {
         $result = mysqli_query($con, "SELECT * FROM item ORDER BY Calories DESC");
+        if (mysqli_num_rows($result) != 0) {
             while ($test = mysqli_fetch_array($result)) {
                 $id = $test['ItemID'];
                 echo "<tr>";
-                echo "<td>" . $test['PName'] . "</td>";
+                echo "<td>" . $test['IName'] . "</td>";
                 echo "<td>" . $test['Cost'] . "</td>";
                 echo "<td>" . $test['Calories'] . "</td>";
                 echo "<td>" . $test['Stock'] . "</td>";
 
                 echo "</tr>";
             }
+        }
     }
 
     if (isset($_POST['stock_low_to_high'])) {
         $result = mysqli_query($con, "SELECT * FROM item ORDER BY Stock ASC");
+        if (mysqli_num_rows($result) != 0) {
             while ($test = mysqli_fetch_array($result)) {
                 $id = $test['ItemID'];
                 echo "<tr>";
-                echo "<td>" . $test['PName'] . "</td>";
+                echo "<td>" . $test['IName'] . "</td>";
                 echo "<td>" . $test['Cost'] . "</td>";
                 echo "<td>" . $test['Calories'] . "</td>";
                 echo "<td>" . $test['Stock'] . "</td>";
 
                 echo "</tr>";
             }
+        }
     }
 
     if (isset($_POST['stock_high_to_low'])) {
         $result = mysqli_query($con, "SELECT * FROM item ORDER BY Stock DESC");
+        if (mysqli_num_rows($result) != 0) {
             while ($test = mysqli_fetch_array($result)) {
                 $id = $test['ItemID'];
                 echo "<tr>";
-                echo "<td>" . $test['PName'] . "</td>";
+                echo "<td>" . $test['IName'] . "</td>";
                 echo "<td>" . $test['Cost'] . "</td>";
                 echo "<td>" . $test['Calories'] . "</td>";
                 echo "<td>" . $test['Stock'] . "</td>";
 
                 echo "</tr>";
             }
+        }
     }
 
 

@@ -8,17 +8,11 @@
     box-sizing: border-box;
 }
 
-.container {
-
-    margin-top: 20px;
-
-}
-
 .hug {
     color: white;
     font-family: 'Sacramento', cursive;
     font-size: 2.5rem;
-    margin-top: -20px;
+    margin-top: -60px;
     margin-bottom: 10px;
     font-weight: bolder;
 
@@ -37,15 +31,11 @@ nav > a {
     text-decoration: none;
     margin-top: 30px;
     margin-bottom: 10px;
-    margin-right: 80px;
-    margin-left: 20px;
+    margin-right: 55px;
+    margin-left: 10px;
     float: right;
 }
 
-.navbar-fixed {
-    position: fixed;
-    top: 0;
-}
 
 .clearfix::after {
     content: "";
@@ -59,10 +49,7 @@ h1 {
     font-size: 7rem;
     font-family: 'Poiret One', cursive;
     text-align: center;
-    margin-top: 0px;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    margin-left: 20px;
+    margin-top: -100px;
 }
 
 
@@ -78,8 +65,7 @@ h3 {
     color: #C5742C;
     font-size: 2rem;
     font-family: 'Oswald', sans-serif;
-    text-align: center;
-    margin: 0;
+    margin-left: 80px;
 }
 
 h4 {
@@ -89,7 +75,7 @@ h4 {
     text-align: center;
     margin-left: 400px;
     margin-bottom: -10px;
-    ;
+;
 }
 
 p {
@@ -102,6 +88,9 @@ p {
 .coltxt {
     padding: 1rem;
     text-align: center;
+    font-family: 'Oswald', sans-serif;
+    color: #4D6E7F;
+
 }
 
 
@@ -111,24 +100,37 @@ p {
 }
 
 .divider-2 {
-    background: url(cinnamonbun.png) no-repeat center center fixed;
+    background: url(yumcoffee.jpg) no-repeat center center fixed;
     background-size: cover;
     height: 65vh;
+    margin-bottom: 30px;
+
 
 }
 
 .divider-3 {
-    background: url(bluebirdreadysalted.jpeg) no-repeat center center fixed;
+    background: url(doughnuts.jpeg) no-repeat center center fixed;
     background-size: cover;
     height: 65vh;
+    margin-bottom: 30px;
+
 
 }
 
 .divider-1 {
-    background: url(yumcoffee.jpg)no-repeat center center fixed;
+    background: url(berrymuffin.jpeg) no-repeat center center fixed;
     background-size: cover;
     height: 65vh;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+}
+
+.divider-4 {
+    background: url(cinnamonbun.png) no-repeat center center fixed;
+    background-size: cover;
+    height: 65vh;
+    margin-bottom: 30px;
+
+
 }
 
 .img {
@@ -146,6 +148,7 @@ nav > a:hover {
 
 body {
     background-color: #D5C9BB;
+    text-align: center;
 
 }
 
@@ -171,3 +174,44 @@ body {
     margin-left: 20px;
 }
 
+
+table, td {
+    border: 1px solid white;
+    font-family: 'Oswald', sans-serif;
+    margin-left: 350px;
+    color: #4D6E7F;
+    border-collapse: collapse;
+    text-align: center;
+
+}
+
+th {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    border: 1px solid white;
+    color: #C5742C;
+}
+
+.filter {
+    float: left;
+    font-family: 'Oswald', sans-serif;
+
+}
+
+input {
+    font-family: 'Oswald', sans-serif;
+    margin-bottom: 30px;
+    margin-left: 80px;
+    background-color: #4D6E7F;
+    color: white;
+
+}
+
+a {
+    color: #C5742C;
+}
+
+hr {
+    border-top: 3px solid white;
+    width: 75%;
+}

@@ -17,11 +17,11 @@ if (isset($_GET['drink'])) {
     $id = 1;
 }
 
-$this_drink_query = "SELECT PName, Cost, Calories, Stock, Description FROM drinks WHERE DrinkID = '" . $id . "'";
+$this_drink_query = "SELECT DName, Cost, Calories, Stock, Description FROM drinks WHERE DrinkID = '" . $id . "'";
 $this_drink_result = mysqli_query($con, $this_drink_query);
 $this_drink_record = mysqli_fetch_assoc($this_drink_result);
 
-$all_drinks_query = "SELECT DrinkID, PName, Cost, Calories, Stock, Description FROM drinks";
+$all_drinks_query = "SELECT DrinkID, DName, Cost, Calories, Stock, Description FROM drinks";
 $all_drinks_result = mysqli_query($con, $all_drinks_query);
 
 ?>
@@ -46,7 +46,6 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
 <p class="hug">Everyone welcome :)</p>
 
 <nav class="clearfix">
-    <a href="contactus.php">Contact us </a>
     <a href="specials.php">Specials </a>
     <a href="drinks2.php">Drinks </a>
     <a href="items.php">Food </a>
@@ -58,13 +57,15 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
 
     <?php
 
-    echo "<p> Drink Name: " . $this_drink_record['PName'] . "<br>";
+    echo "<p> Drink Name: " . $this_drink_record['DName'] . "<br>";
     echo "<p> Cost: $" . $this_drink_record ['Cost'] . "<br>";
     echo "<p> Calories: " . $this_drink_record ['Calories'] . "<br>";
     echo "<p> Stock: " . $this_drink_record ['Stock'] . "<br>";
     echo "<p> Description: " . $this_drink_record ['Description'] . "<br>";
     ?>
 </main>
+
+<hr>
 
 <div class="coltxt">
     <h2>Select Another Drink</h2>
@@ -75,7 +76,7 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
                 <?php
                 while ($all_drinks_record = mysqli_fetch_assoc($all_drinks_result)) {
                     echo "<option value = '" . $all_drinks_record['DrinkID'] . "'>";
-                    echo $all_drinks_record['PName'];
+                    echo $all_drinks_record['DName'];
                     echo "</option>";
                 }
                 ?>
@@ -84,6 +85,8 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
         </form>
     </main>
 </div>
+
+<hr>
 
 <div class="coltxt">
     <h2> Search a Drink</h2>
@@ -96,16 +99,20 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
     if (isset($_POST['search'])) {
         $search = $_POST['search'];
 
-        $query1 = "SELECT * FROM drinks WHERE PName LIKE '%$search%'";
+        $query1 = "SELECT * FROM drinks WHERE DName LIKE '%$search%'";
         $query = mysqli_query($con, $query1);
         $count = mysqli_num_rows($query);
 
         if ($count == 0) {
             echo "There was no search results!";
-        } else {
+            }
+        elseif ($search == ""){
+            echo "There was no search results!";
+        }
+         else {
 
             while ($row = mysqli_fetch_array($query)) {
-                echo $row ['PName'];
+                echo $row ['DName'];
                 echo "<br>";
             }
 
@@ -113,6 +120,8 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
     }
     ?>
 </div>
+
+<hr>
 
 <h2>Drinks Menu</h2>
 
@@ -145,12 +154,12 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
 
     <?php
     if (isset($_POST['A-Z'])) {
-        $result = mysqli_query($con, "SELECT * FROM drinks ORDER BY PName ASC");
+        $result = mysqli_query($con, "SELECT * FROM drinks ORDER BY DName ASC");
         if (mysqli_num_rows($result) != 0) {
             while ($test = mysqli_fetch_array($result)) {
                 $id = $test['DrinkID'];
                 echo "<tr>";
-                echo "<td>" . $test['PName'] . "</td>";
+                echo "<td>" . $test['DName'] . "</td>";
                 echo "<td>" . $test['Cost'] . "</td>";
                 echo "<td>" . $test['Calories'] . "</td>";
                 echo "<td>" . $test['Stock'] . "</td>";
@@ -163,12 +172,12 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
 
 
     if (isset($_POST['Z-A'])) {
-        $result = mysqli_query($con, "SELECT * FROM drinks ORDER BY PName DESC");
+        $result = mysqli_query($con, "SELECT * FROM drinks ORDER BY DName DESC");
         if (mysqli_num_rows($result) != 0) {
             while ($test = mysqli_fetch_array($result)) {
                 $id = $test['DrinkID'];
                 echo "<tr>";
-                echo "<td>" . $test['PName'] . "</td>";
+                echo "<td>" . $test['DName'] . "</td>";
                 echo "<td>" . $test['Cost'] . "</td>";
                 echo "<td>" . $test['Calories'] . "</td>";
                 echo "<td>" . $test['Stock'] . "</td>";
@@ -185,7 +194,7 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
             while ($test = mysqli_fetch_array($result)) {
                 $id = $test['DrinkID'];
                 echo "<tr>";
-                echo "<td>" . $test['PName'] . "</td>";
+                echo "<td>" . $test['DName'] . "</td>";
                 echo "<td>" . $test['Cost'] . "</td>";
                 echo "<td>" . $test['Calories'] . "</td>";
                 echo "<td>" . $test['Stock'] . "</td>";
@@ -202,7 +211,7 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
             while ($test = mysqli_fetch_array($result)) {
                 $id = $test['DrinkID'];
                 echo "<tr>";
-                echo "<td>" . $test['PName'] . "</td>";
+                echo "<td>" . $test['DName'] . "</td>";
                 echo "<td>" . $test['Cost'] . "</td>";
                 echo "<td>" . $test['Calories'] . "</td>";
                 echo "<td>" . $test['Stock'] . "</td>";
@@ -217,7 +226,7 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
             while ($test = mysqli_fetch_array($result)) {
                 $id = $test['DrinkID'];
                 echo "<tr>";
-                echo "<td>" . $test['PName'] . "</td>";
+                echo "<td>" . $test['DName'] . "</td>";
                 echo "<td>" . $test['Cost'] . "</td>";
                 echo "<td>" . $test['Calories'] . "</td>";
                 echo "<td>" . $test['Stock'] . "</td>";
@@ -232,7 +241,7 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
             while ($test = mysqli_fetch_array($result)) {
                 $id = $test['DrinkID'];
                 echo "<tr>";
-                echo "<td>" . $test['PName'] . "</td>";
+                echo "<td>" . $test['DName'] . "</td>";
                 echo "<td>" . $test['Cost'] . "</td>";
                 echo "<td>" . $test['Calories'] . "</td>";
                 echo "<td>" . $test['Stock'] . "</td>";
@@ -247,7 +256,7 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
             while ($test = mysqli_fetch_array($result)) {
                 $id = $test['DrinkID'];
                 echo "<tr>";
-                echo "<td>" . $test['PName'] . "</td>";
+                echo "<td>" . $test['DName'] . "</td>";
                 echo "<td>" . $test['Cost'] . "</td>";
                 echo "<td>" . $test['Calories'] . "</td>";
                 echo "<td>" . $test['Stock'] . "</td>";
@@ -262,7 +271,7 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
             while ($test = mysqli_fetch_array($result)) {
                 $id = $test['DrinkID'];
                 echo "<tr>";
-                echo "<td>" . $test['PName'] . "</td>";
+                echo "<td>" . $test['DName'] . "</td>";
                 echo "<td>" . $test['Cost'] . "</td>";
                 echo "<td>" . $test['Calories'] . "</td>";
                 echo "<td>" . $test['Stock'] . "</td>";
