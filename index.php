@@ -78,9 +78,9 @@ $all_items_result = mysqli_query($con, $all_items_query);
                     </select>
                     <input type='submit' name='items_button' value='Show me the items information'>
                 </form>
+    </main>
         </div>
     </div>
-</div>
 </div>
 
 
@@ -117,9 +117,7 @@ $all_items_result = mysqli_query($con, $all_items_query);
         </div>
     </div>
 </div>
-</div>
 
-</main>
 
 </body>
 
